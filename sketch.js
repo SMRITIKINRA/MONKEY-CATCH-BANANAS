@@ -32,6 +32,7 @@ function setup() {
   
   monkey.setCollider("circle",0,0,300);
   //monkey.debug = true
+  edges =  createEdgeSprites();
   
   score=0
   survivalTime=0
@@ -52,7 +53,7 @@ function draw() {
   }
 
   if (gameState === PLAY) {
-    survivalTime = Math.round(frameCount/60);
+    survivalTime = survivalTime + Math.round(getFrameRate()/60);
     if (keyDown("space") && monkey.y >=110) {
       monkey.velocityY = -10
     }
@@ -104,10 +105,11 @@ function draw() {
     }
   }
     monkey.collide(ground)
+    monkey.collide(edges[3])
   drawSprites();
 }
 function Reset() {
-  gameState=PLAY
+  gameState =PLAY
   monkey.changeAnimation("running",monkey_running)
   ground.velocityX=-6
   obstacleGroup.destroyEach();
